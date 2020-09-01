@@ -1,0 +1,512 @@
+print(rfModel)
+churn.predict_prob <- predict(rfModel, randomforest_churn_test, type = 'prob')
+churn.predict_prob <- predict(rfModel, randomforest_churn_test, type = "prob")
+pred_rf <- predict(rfModel, randomforest_churn_test)
+confusionMatrix(factor(pred_rf), factor(randomforest_churn_test$Exited), positive = "Yes")
+install.packages('randomForest')
+install.packages('corrplot')
+install.packages('gridExtra')
+install.packages('grid')
+install.packages('ggplot2')
+install.packages('lattice')
+install.packages('MASS')
+install.packages('party')
+install.packages('caret')
+library(cadet)
+library(party)
+library(MASS)
+library(randomForest)
+library(corrplot)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
+install.packages("randomForest")
+#Reading the train and test files
+randomforest_churn_train <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TrainData).csv')
+randomforest_churn_test <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TestData).csv')
+str(randomforest_churn_train)
+str(randomforest_churn_test)
+#Removing the columns we do not need for the analysis.
+randomforest_churn_train$RowNumber <- NULL
+randomforest_churn_train$CustomerId <- NULL
+randomforest_churn_train$Surname <- NULL
+randomforest_churn_test$RowNumber <- NULL
+randomforest_churn_test$CustomerId <- NULL
+randomforest_churn_test$Surname <- NULL
+#Correlation between numeric variables
+numeric.var <- sapply(randomforest_churn_train, is.numeric)
+corr.matrix <- cor(randomforest_churn_train[,numeric.var])
+corrplot(corr.matrix, main="\n\nCorrelation Plot for Numerical Variables", method="number")
+#Bar plots of categorical variables
+p1 <- ggplot(randomforest_churn_train, aes(x=Geography)) + ggtitle("Geography") + xlab("Geography") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p2 <- ggplot(randomforest_churn_train, aes(x=Gender)) + ggtitle("Gender") + xlab("Gender") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p3 <- ggplot(randomforest_churn_train, aes(x=Age)) + ggtitle("Age") + xlab("Age") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p4 <- ggplot(randomforest_churn_train, aes(x=NumOfProducts)) + ggtitle("NumOfProducts") + xlab("NumOfProducts") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p5 <- ggplot(randomforest_churn_train, aes(x=HasCrCard)) + ggtitle("HasCrCard") + xlab("HasCrCard") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p6 <- ggplot(randomforest_churn_train, aes(x=IsActiveMember)) + ggtitle("IsActiveMember") + xlab("IsActiveMember") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+install.packages('ggplot2')
+install.packages("ggplot2")
+#Bar plots of categorical variables
+p1 <- ggplot(randomforest_churn_train, aes(x=Geography)) + ggtitle("Geography") + xlab("Geography") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p2 <- ggplot(randomforest_churn_train, aes(x=Gender)) + ggtitle("Gender") + xlab("Gender") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p3 <- ggplot(randomforest_churn_train, aes(x=Age)) + ggtitle("Age") + xlab("Age") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p4 <- ggplot(randomforest_churn_train, aes(x=NumOfProducts)) + ggtitle("NumOfProducts") + xlab("NumOfProducts") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p5 <- ggplot(randomforest_churn_train, aes(x=HasCrCard)) + ggtitle("HasCrCard") + xlab("HasCrCard") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p6 <- ggplot(randomforest_churn_train, aes(x=IsActiveMember)) + ggtitle("IsActiveMember") + xlab("IsActiveMember") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+install.packages('randomForest')
+install.packages('corrplot')
+install.packages('gridExtra')
+install.packages('grid')
+install.packages('ggplot2')
+install.packages('lattice')
+install.packages('MASS')
+install.packages('party')
+install.packages('caret')
+library(cadet)
+library(party)
+library(MASS)
+library(randomForest)
+library(corrplot)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
+#Reading the train and test files
+randomforest_churn_train <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TrainData).csv')
+randomforest_churn_test <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TestData).csv')
+str(randomforest_churn_train)
+str(randomforest_churn_test)
+#Removing the columns we do not need for the analysis.
+randomforest_churn_train$RowNumber <- NULL
+randomforest_churn_train$CustomerId <- NULL
+randomforest_churn_train$Surname <- NULL
+randomforest_churn_test$RowNumber <- NULL
+randomforest_churn_test$CustomerId <- NULL
+randomforest_churn_test$Surname <- NULL
+#Correlation between numeric variables
+numeric.var <- sapply(randomforest_churn_train, is.numeric)
+corr.matrix <- cor(randomforest_churn_train[,numeric.var])
+corrplot(corr.matrix, main="\n\nCorrelation Plot for Numerical Variables", method="number")
+#Bar plots of categorical variables
+p1 <- ggplot(randomforest_churn_train, aes(x=Geography)) + ggtitle("Geography") + xlab("Geography") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p2 <- ggplot(randomforest_churn_train, aes(x=Gender)) + ggtitle("Gender") + xlab("Gender") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p3 <- ggplot(randomforest_churn_train, aes(x=Age)) + ggtitle("Age") + xlab("Age") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p4 <- ggplot(randomforest_churn_train, aes(x=NumOfProducts)) + ggtitle("NumOfProducts") + xlab("NumOfProducts") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p5 <- ggplot(randomforest_churn_train, aes(x=HasCrCard)) + ggtitle("HasCrCard") + xlab("HasCrCard") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p6 <- ggplot(randomforest_churn_train, aes(x=IsActiveMember)) + ggtitle("IsActiveMember") + xlab("IsActiveMember") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+LogModel <- glm(Exited ~ .,family=binomial(link="logit"),data=randomforest_churn_train)
+print(summary(LogModel))
+anova(LogModel, test="Chisq")
+randomforest_churn_test$Exited <- as.character(randomforest_churn_test$Exited)
+randomforest_churn_test$Exited[randomforest_churn_test$Exited=="No"] <- "0"
+randomforest_churn_test$Exited[randomforest_churn_test$Exited=="Yes"] <- "1"
+fitted.results <- predict(LogModel,newdata=randomforest_churn_test,type='response')
+fitted.results <- ifelse(fitted.results > 0.5,1,0)
+misClasificError <- mean(fitted.results != randomforest_churn_test$Exited)
+print(paste('Logistic Regression Accuracy',1-misClasificError))
+#Logistic regression confusion matrix
+print("Confusion Matrix for Logistic Regression");
+table(randomforest_churn_test$Exited, fitted.results > 0.5)
+exp(cbind(OR=coef(LogModel), confint(LogModel)))
+rfModel <- randomForest(Exited ~., data = randomforest_churn_train, importance = T)
+print(rfModel)
+install.packages('randomForest')
+library(randomForest)
+rfModel <- randomForest(Exited ~., data = randomforest_churn_train, importance = T)
+print(rfModel)
+pred_rf <- predict(rfModel, randomforest_churn_test)
+confusionMatrix(factor(pred_rf), factor(randomforest_churn_test$Exited), positive = "Yes")
+install.packages('e1071', dependencies=TRUE)
+install.packages('caret', dependencies=TRUE)
+install.packages("caret", dependencies = TRUE)
+library(cadet)
+library(e1071)
+caret::confusionMatrix(factor(pred_rf), factor(randomforest_churn_test$Exited), positive = "Yes")
+randomforest_churn_train$Exited <- as.factor(randomforest_churn_train$Exited)
+pred_rf <- predict(rfModel, randomforest_churn_test, type = "class")
+caret::confusionMatrix(factor(pred_rf), factor(randomforest_churn_test$Exited), positive = "Yes")
+pred_rf <- predict(rfModel, randomforest_churn_train, type = "class")
+caret::confusionMatrix(factor(pred_rf), factor(randomforest_churn_train$Exited), positive = "Yes")
+levels(randomforest_churn_train$Exited)
+levels(randomforest_churn_test$Exited)
+rfModel <- randomForest(Exited ~., data = randomforest_churn_test, importance = T)
+print(rfModel)
+pred_rf <- predict(rfModel, randomforest_churn_test, type = "class")
+caret::confusionMatrix(factor(pred_rf), factor(randomforest_churn_train$Exited), positive = "Yes")
+caret::confusionMatrix(factor(pred_rf), factor(randomforest_churn_test$Exited), positive = "Yes")
+levels(randomforest_churn_test$Exited)
+install.packages('randomForest')
+install.packages('corrplot')
+install.packages('gridExtra')
+install.packages('grid')
+install.packages('ggplot2')
+install.packages('lattice')
+install.packages('MASS')
+install.packages('party')
+install.packages('e1071', dependencies=TRUE)
+install.packages('caret', dependencies=TRUE)
+library(e1071)
+library(party)
+library(MASS)
+library(randomForest)
+library(corrplot)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
+#Reading the train and test files
+churn_train <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TrainData).csv')
+churn_test <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TestData).csv')
+str(churn_train)
+str(churn_test)
+churn_train$RowNumber <- NULL
+churn_train$CustomerId <- NULL
+churn_train$Surname <- NULL
+churn_test$RowNumber <- NULL
+churn_test$CustomerId <- NULL
+churn_test$Surname <- NULL
+numeric.var <- sapply(churn_train, is.numeric)
+corr.matrix <- cor(churn_train[,numeric.var])
+corrplot(corr.matrix, main="\n\nCorrelation Plot for Numerical Variables", method="number")
+p1 <- ggplot(churn_train, aes(x=Geography)) + ggtitle("Geography") + xlab("Geography") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p2 <- ggplot(churn_train, aes(x=Gender)) + ggtitle("Gender") + xlab("Gender") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p3 <- ggplot(churn_train, aes(x=Age)) + ggtitle("Age") + xlab("Age") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p4 <- ggplot(churn_train, aes(x=NumOfProducts)) + ggtitle("NumOfProducts") + xlab("NumOfProducts") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p5 <- ggplot(churn_train, aes(x=HasCrCard)) + ggtitle("HasCrCard") + xlab("HasCrCard") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p6 <- ggplot(churn_train, aes(x=IsActiveMember)) + ggtitle("IsActiveMember") + xlab("IsActiveMember") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+LogModel <- glm(Exited~., family=binomial(link="logit"),data=churn_train)
+print(summary(LogModel))
+anova(LogModel, test="Chisq")
+churn_test$Exited <- as.character(churn_test$Exited)
+churn_test$Exited[churn_test$Exited=="No"] <- "0"
+churn_test$Exited[churn_test$Exited=="Yes"] <- "1"
+fitted.results <- predict(LogModel,newdata=churn_test,type='response')
+fitted.results <- ifelse(fitted.results > 0.5,1,0)
+misClasificError <- mean(fitted.results != churn_test$Exited)
+print(paste('Logistic Regression Accuracy',1-misClasificError))
+print("Confusion Matrix for Logistic Regression");
+table(churn_test$Exited, fitted.results > 0.5)
+#Odds Ratio
+exp(cbind(OR=coef(LogModel), confint(LogModel)))
+rfModel <- randomForest(Exited ~., data = churn_train, importance = T)
+print(rfModel)
+pred_rf <- predict(rfModel, churn_test, type = "class")
+caret::confusionMatrix(factor(pred_rf), factor(churn_test$Exited), positive = "Yes")
+levels(pred_rf)
+levels(churn_test$Exited)
+levels(pred_rf)
+levels(churn_train$Exited)
+class(pred_rf)
+class(churn_test$Exited)
+levels(factor(pred_rf))
+levels(factor(churn_train$Exited))
+pred_rf <- predict(rfModel, churn_test, type = "class")
+caret::confusionMatrix(factor(churn_test$Exited), factor(churn_test$Exited), positive = "Yes")
+caret::confusionMatrix(churn_test$Exited, churn_test$Exited)
+caret::confusionMatrix(factor(churn_test$Exited), factor(churn_test$Exited))
+caret::confusionMatrix(factor(churn_train$Exited), factor(churn_test$Exited))
+class(pred_rf)
+class(churn_test$Exited)
+levels(factor(pred_rf))
+levels(factor(churn_train$Exited))
+print(pred_rf)
+caret::confusionMatrix(ifelse(pred_rf>0.5,1,0), churn_test$Exited, positive = "Yes")
+caret::confusionMatrix(factor(ifelse(pred_rf>0.5,1,0)), factor(churn_test$Exited), positive = "Yes")
+pred_rf <- ifelse(pred_rf>0.5, 1,0)
+print(pred_rf)
+levels(factor(pred_rf))
+caret::confusionMatrix(factor(pred_rf), factor(churn_test$Exited), positive = "Yes")
+levels(factor(pred_rf))
+levels(factor(churn_test$Exited))
+caret::confusionMatrix(factor(pred_rf), factor(churn_test$Exited))
+install.packages('randomForest')
+install.packages('corrplot')
+install.packages('gridExtra')
+install.packages('grid')
+install.packages('ggplot2')
+install.packages('lattice')
+install.packages('MASS')
+install.packages('party')
+install.packages('e1071', dependencies=TRUE)
+install.packages('caret', dependencies=TRUE)
+library(e1071)
+library(party)
+library(MASS)
+library(randomForest)
+library(corrplot)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
+#Reading the train and test files
+churn_train <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TrainData).csv')
+churn_test <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TestData).csv')
+str(churn_train)
+str(churn_test)
+#Removing the columns we do not need for the analysis.
+churn_train$RowNumber <- NULL
+churn_train$CustomerId <- NULL
+churn_train$Surname <- NULL
+churn_test$RowNumber <- NULL
+churn_test$CustomerId <- NULL
+churn_test$Surname <- NULL
+numeric.var <- sapply(churn_train, is.numeric)
+corr.matrix <- cor(churn_train[,numeric.var])
+corrplot(corr.matrix, main="\n\nCorrelation Plot for Numerical Variables", method="number")
+p1 <- ggplot(churn_train, aes(x=Geography)) + ggtitle("Geography") + xlab("Geography") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p2 <- ggplot(churn_train, aes(x=Gender)) + ggtitle("Gender") + xlab("Gender") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p3 <- ggplot(churn_train, aes(x=Age)) + ggtitle("Age") + xlab("Age") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p4 <- ggplot(churn_train, aes(x=NumOfProducts)) + ggtitle("NumOfProducts") + xlab("NumOfProducts") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p5 <- ggplot(churn_train, aes(x=HasCrCard)) + ggtitle("HasCrCard") + xlab("HasCrCard") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p6 <- ggplot(churn_train, aes(x=IsActiveMember)) + ggtitle("IsActiveMember") + xlab("IsActiveMember") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+#Logistic Regression
+LogModel <- glm(Exited~., family=binomial(link="logit"),data=churn_train)
+print(summary(LogModel))
+#Anova
+anova(LogModel, test="Chisq")
+churn_test$Exited <- as.character(churn_test$Exited)
+churn_test$Exited[churn_test$Exited=="No"] <- "0"
+churn_test$Exited[churn_test$Exited=="Yes"] <- "1"
+fitted.results <- predict(LogModel,newdata=churn_test,type='response')
+fitted.results <- ifelse(fitted.results > 0.5,1,0)
+misClasificError <- mean(fitted.results != churn_test$Exited)
+print(paste('Logistic Regression Accuracy',1-misClasificError))
+print("Confusion Matrix for Logistic Regression");
+table(churn_test$Exited, fitted.results > 0.5)
+exp(cbind(OR=coef(LogModel), confint(LogModel)))
+rfModel <- randomForest(Exited ~., data = churn_train, importance = T)
+print(rfModel)
+pred_rf <- predict(rfModel, churn_test, type = "class")
+pred_rf <- ifelse(pred_rf>0.5, 1,0)
+caret::confusionMatrix(factor(pred_rf), factor(churn_test$Exited))
+plot(rfModel)
+install.packages('ROCR')
+library(ROCR)
+# need to create prediction object from ROCR
+pr <- prediction(pred_rf.prob[,2], churn_test$Exited)
+importance(rfModel)
+rfchurn.predict.prob <- predict(rfModel, churn_test, type="prob")
+rfchurn.predict.prob <- predict(rfModel, factor(churn_test$Exited), type="prob")
+rfchurn.predict.prob <- factor(predict(rfModel, churn_test, type="prob"))
+class(rfchurn.predict.prob)
+class(predict(rfModel, churn_test, type="prob"))
+pred_rf <- predict(rfModel, churn_test)
+pred_rf <- ifelse(pred_rf>0.5, 1,0)
+caret::confusionMatrix(factor(pred_rf), factor(churn_test$Exited))
+plot(rfModel)
+plot(rfModel)
+churn.predict.prob <- predict(rfModel, churn_test, type="prob")
+churn.predict.prob <- predict(rfModel, newdata = churn_test, type="prob")
+churn.predict.prob <- predict(rfModel, newdata = churn_test, type="class")
+pr <- prediction(churn.predict.prob[,2], churn_test$Exited)
+levels(factor(churn.predict.prob))
+t <- tuneRF(churn_train[, -18], churn_train[, 18], stepFactor = 0.5, plot = TRUE, ntreeTry = 200, trace = TRUE, improve = 0.05)
+names(churn_train)
+t <- tuneRF(churn_train[, -11], churn_train[, 11], stepFactor = 0.5, plot = TRUE, ntreeTry = 200, trace = TRUE, improve = 0.05)
+rfModel_new <- randomForest(Exited ~., data = churn_train, ntree = 200, mtry = 2, importance = TRUE, proximity = TRUE)
+print(rfModel_new)
+pred_rf_new <- predict(rfModel_new, churn_test)
+pred_rf_new <- ifelse(pred_rf_new > 0.5, 1, 0)
+caret::confusionMatrix(factor(pred_rf_new), factor(churn_test$Exited))
+varImpPlot(rfModel_new, sort=T, n.var = 10, main = 'Top 10 Feature Importance')
+churn_train <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TrainData).csv')
+churn_test <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TestData).csv')
+str(churn_train)
+str(churn_test)
+install.packages('randomForest')
+install.packages('corrplot')
+install.packages('gridExtra')
+install.packages('grid')
+install.packages('ggplot2')
+install.packages('lattice')
+install.packages('MASS')
+install.packages('party')
+install.packages('e1071', dependencies=TRUE)
+install.packages('caret', dependencies=TRUE)
+install.packages('ROCR')
+library(e1071)
+library(party)
+library(MASS)
+library(randomForest)
+library(corrplot)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
+library(ROCR)
+churn_train <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TrainData).csv')
+churn_test <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TestData).csv')
+str(churn_train)
+str(churn_test)
+churn_train$RowNumber <- NULL
+churn_train$CustomerId <- NULL
+churn_train$Surname <- NULL
+churn_test$RowNumber <- NULL
+churn_test$CustomerId <- NULL
+churn_test$Surname <- NULL
+numeric.var <- sapply(churn_train, is.numeric)
+corr.matrix <- cor(churn_train[,numeric.var])
+corrplot(corr.matrix, main="\n\nCorrelation Plot for Numerical Variables", method="number")
+#Bar plots of categorical variables
+p1 <- ggplot(churn_train, aes(x=Geography)) + ggtitle("Geography") + xlab("Geography") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p2 <- ggplot(churn_train, aes(x=Gender)) + ggtitle("Gender") + xlab("Gender") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p3 <- ggplot(churn_train, aes(x=Age)) + ggtitle("Age") + xlab("Age") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p4 <- ggplot(churn_train, aes(x=NumOfProducts)) + ggtitle("NumOfProducts") + xlab("NumOfProducts") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p5 <- ggplot(churn_train, aes(x=HasCrCard)) + ggtitle("HasCrCard") + xlab("HasCrCard") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p6 <- ggplot(churn_train, aes(x=IsActiveMember)) + ggtitle("IsActiveMember") + xlab("IsActiveMember") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+LogModel <- glm(Exited~., family=binomial(link="logit"),data=churn_train)
+print(summary(LogModel))
+anova(LogModel, test="Chisq")
+churn_test$Exited <- as.character(churn_test$Exited)
+churn_test$Exited[churn_test$Exited=="No"] <- "0"
+churn_test$Exited[churn_test$Exited=="Yes"] <- "1"
+fitted.results <- predict(LogModel,newdata=churn_test,type='response')
+fitted.results <- ifelse(fitted.results > 0.5,1,0)
+misClasificError <- mean(fitted.results != churn_test$Exited)
+print(paste('Logistic Regression Accuracy',1-misClasificError))
+print("Confusion Matrix for Logistic Regression");
+table(churn_test$Exited, fitted.results > 0.5)
+exp(cbind(OR=coef(LogModel), confint(LogModel)))
+rfModel <- randomForest(Exited ~., data = churn_train, importance = T)
+print(rfModel)
+pred_rf <- predict(rfModel, churn_test)
+pred_rf <- ifelse(pred_rf>0.5, 1,0)
+caret::confusionMatrix(factor(pred_rf), factor(churn_test$Exited))
+plot(rfModel)
+t <- tuneRF(churn_train[, -11], churn_train[, 11], stepFactor = 0.5, plot = TRUE, ntreeTry = 200, trace = TRUE, improve = 0.05)
+rfModel_new <- randomForest(Exited ~., data = churn_train, ntree = 200, mtry = 2, importance = TRUE, proximity = TRUE)
+print(rfModel_new)
+pred_rf_new <- predict(rfModel_new, churn_test)
+pred_rf_new <- ifelse(pred_rf_new > 0.5, 1, 0)
+caret::confusionMatrix(factor(pred_rf_new), factor(churn_test$Exited))
+plot(rfModel_new)
+varImpPlot(rfModel_new, sort=T, n.var = 10, main = 'Top 10 Feature Importance')
+install.packages('randomForest')
+install.packages('corrplot')
+install.packages('gridExtra')
+install.packages('grid')
+install.packages('ggplot2')
+install.packages('lattice')
+install.packages('MASS')
+install.packages('party')
+install.packages('e1071', dependencies=TRUE)
+install.packages('caret', dependencies=TRUE)
+library(e1071)
+library(party)
+library(MASS)
+library(randomForest)
+library(corrplot)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(lattice)
+install.packages("grid")
+install.packages("ggplot2")
+install.packages("MASS")
+install.packages("lattice")
+install.packages("caret", dependencies = TRUE)
+install.packages("lattice")
+install.packages("caret", dependencies = TRUE)
+churn_train <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TrainData).csv')
+churn_test <- read.csv('C:\\Users\\vrush\\OneDrive\\Desktop\\BIA-652\\Final Project\\ChurnModelling (TestData).csv')
+str(churn_train)
+str(churn_test)
+churn_train$RowNumber <- NULL
+churn_train$CustomerId <- NULL
+churn_train$Surname <- NULL
+churn_test$RowNumber <- NULL
+churn_test$CustomerId <- NULL
+churn_test$Surname <- NULL
+numeric.var <- sapply(churn_train, is.numeric)
+corr.matrix <- cor(churn_train[,numeric.var])
+corrplot(corr.matrix, main="\n\nCorrelation Plot for Numerical Variables", method="number")
+#Bar plots of categorical variables
+p1 <- ggplot(churn_train, aes(x=Geography)) + ggtitle("Geography") + xlab("Geography") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p2 <- ggplot(churn_train, aes(x=Gender)) + ggtitle("Gender") + xlab("Gender") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p3 <- ggplot(churn_train, aes(x=Age)) + ggtitle("Age") + xlab("Age") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p4 <- ggplot(churn_train, aes(x=NumOfProducts)) + ggtitle("NumOfProducts") + xlab("NumOfProducts") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p5 <- ggplot(churn_train, aes(x=HasCrCard)) + ggtitle("HasCrCard") + xlab("HasCrCard") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+p6 <- ggplot(churn_train, aes(x=IsActiveMember)) + ggtitle("IsActiveMember") + xlab("IsActiveMember") +
+geom_bar(aes(y = 100*(..count..)/sum(..count..)), width = 0.5) + ylab("Percentage") + coord_flip() + theme_minimal()
+grid.arrange(p1, p2, p3, p4, p5, p6, ncol=3)
+############################################################################################
+#Logistic Regression
+LogModel <- glm(Exited~., family=binomial(link="logit"),data=churn_train)
+print(summary(LogModel))
+#Anova
+anova(LogModel, test="Chisq")
+#Testing the model
+churn_test$Exited <- as.character(churn_test$Exited)
+churn_test$Exited[churn_test$Exited=="No"] <- "0"
+churn_test$Exited[churn_test$Exited=="Yes"] <- "1"
+fitted.results <- predict(LogModel,newdata=churn_test,type='response')
+fitted.results <- ifelse(fitted.results > 0.5,1,0)
+misClasificError <- mean(fitted.results != churn_test$Exited)
+print(paste('Logistic Regression Accuracy',1-misClasificError))
+#Logistic regression confusion matrix
+print("Confusion Matrix for Logistic Regression");
+table(churn_test$Exited, fitted.results > 0.5)
+#Odds Ratio
+exp(cbind(OR=coef(LogModel), confint(LogModel)))
+rfModel <- randomForest(Exited ~., data = churn_train, importance = T)
+print(rfModel)
+#Random Forest Prediction and Confusion Matrix
+pred_rf <- predict(rfModel, churn_test)
+pred_rf <- ifelse(pred_rf>0.5, 1,0)
+caret::confusionMatrix(factor(pred_rf), factor(churn_test$Exited))
+plot(rfModel)
+t <- tuneRF(churn_train[, -11], churn_train[, 11], stepFactor = 0.5, plot = TRUE, ntreeTry = 200, trace = TRUE, improve = 0.05)
+rfModel_new <- randomForest(Exited ~., data = churn_train, ntree = 200, mtry = 3, importance = TRUE, proximity = TRUE)
+print(rfModel_new)
+#Random Forest predictions and confusion matrix after tuning
+pred_rf_new <- predict(rfModel_new, churn_test)
+pred_rf_new <- ifelse(pred_rf_new > 0.5, 1, 0)
+caret::confusionMatrix(factor(pred_rf_new), factor(churn_test$Exited))
